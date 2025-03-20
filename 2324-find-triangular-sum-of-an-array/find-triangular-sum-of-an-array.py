@@ -1,9 +1,12 @@
 class Solution:
     def triangularSum(self, nums: List[int]) -> int:
-        N = len(nums)
-        curr_len = N
-        for i in range(N-1):
-            for j in range(1,curr_len):
-                nums[j-1] = (nums[j-1]+nums[j])%10
-            curr_len-=1
-        return nums[0]
+        n = len(nums)
+        coeff = 1  # Start with C(n-1, 0) = 1
+        result = 0
+
+        for i in range(n):
+            result = (result + coeff * nums[i]) % 10
+            # Update coefficient for the next number
+            coeff = coeff * (n - 1 - i) // (i + 1)
+
+        return result
